@@ -3,6 +3,7 @@ package org.sharpsw.app
 import org.json4s.{DefaultFormats, Formats}
 import org.scalatra._
 import org.scalatra.json.JacksonJsonSupport
+import org.sharpsw.app.data.{Playlist, PlaylistFactory}
 import org.slf4j.{Logger, LoggerFactory}
 
 class PlaylistServlet extends ScalatraServlet with JacksonJsonSupport with CorsSupport {
@@ -11,11 +12,13 @@ class PlaylistServlet extends ScalatraServlet with JacksonJsonSupport with CorsS
 
   get ("/city") {
     logger.info("City informed: " + params.get("name").get)
+    PlaylistFactory.createFakePlaylist()
   }
 
   get ("/coords") {
     logger.info("Latitude: " + params.get("latitude").get)
     logger.info("Latitude: " + params.get("longitude").get)
+    PlaylistFactory.createFakePlaylist()
   }
 
   options("/*"){
