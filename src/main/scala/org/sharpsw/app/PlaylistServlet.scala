@@ -5,7 +5,7 @@ import org.scalatra._
 import org.scalatra.json.JacksonJsonSupport
 import org.sharpsw.app.data.PlaylistFactory.createFakePlaylist
 import org.sharpsw.app.data.{Playlist, PlaylistFactory}
-import org.sharpsw.service.OpenWeatherMapService
+import org.sharpsw.service.{OpenWeatherMapService, SpotifyService}
 import org.sharpsw.service.OpenWeatherMapService.{retrieveWeatherByCity, retrieveWeatherByCoords}
 import org.slf4j.{Logger, LoggerFactory}
 
@@ -16,14 +16,14 @@ class PlaylistServlet extends ScalatraServlet with JacksonJsonSupport with CorsS
   get ("/city") {
     logger.info("City informed: " + params.get("name").get)
     val result = retrieveWeatherByCity(params.get("name").get)
-    createFakePlaylist()
+    SpotifyService.getTracks(result.main.temp)
   }
 
   get ("/coords") {
     logger.info("Latitude: " + params.get("latitude").get)
     logger.info("Latitude: " + params.get("longitude").get)
     val result = retrieveWeatherByCoords(params.get("latitude").get, params.get("longitude").get)
-    createFakePlaylist()
+    SpotifyService.getTracks(result.main.temp)
   }
 
   options("/*"){
