@@ -4,6 +4,6 @@ import javax.servlet.ServletContext
 
 class ScalatraBootstrap extends LifeCycle {
   override def init(context: ServletContext) {
-    context.mount(new PlaylistServlet, "/v1/playlist", "Playlist")
+    context.mount(new PlaylistServlet, "/playlist", "Playlist")
   }
 }

@@ -23,7 +23,8 @@ libraryDependencies ++= Seq(
   "org.scalatra" %% "scalatra-commands" % ScalatraVersion,
   "org.scalatra" %% "scalatra-auth" % ScalatraVersion,
   "org.json4s"   %% "json4s-native" % "3.5.2",
-  "org.json4s"   %% "json4s-jackson" % "3.5.2"
+  "org.json4s"   %% "json4s-jackson" % "3.5.2",
+  "org.apache.httpcomponents" % "httpclient" % "4.5.4"
 )
 
 enablePlugins(SbtTwirl)

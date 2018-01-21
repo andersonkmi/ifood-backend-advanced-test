@@ -5,10 +5,10 @@ import org.scalatra.test.scalatest._
 
 class PlaylistServletTests extends ScalatraSuite with FunSuiteLike {
 
-  addServlet(classOf[PlaylistServlet], "/*")
+  addServlet(classOf[PlaylistServlet], "/playlist")
 
-  test("GET /v1/playlist/city on PlaylistServlet should return status 200"){
-    get("/v1/playlist/city") {
+  test("GET /playlist/city on PlaylistServlet should return status 200"){
+    get("/playlist/city") {
       status should equal (200)
     }
   }
