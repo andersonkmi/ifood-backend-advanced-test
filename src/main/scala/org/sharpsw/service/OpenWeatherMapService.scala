@@ -12,13 +12,21 @@ object OpenWeatherMapService {
 
   private val logger = LoggerFactory.getLogger(getClass)
 
-  def retrieveTempByCity(city: String) : OpenWeatherInfo = {
+  def retrieveWeatherByCity(city: String) : OpenWeatherInfo = {
     val apiKey = ConfigProperties.getProperty(ConfigProperties.OpenWeatherMapApiKey)
     val url = ConfigProperties.getProperty(ConfigProperties.OpenWeatherMapUrl) + "q=" + city + "&appid=" + apiKey
     logger.info("URL: " + url)
     val result = SimpleRestClient.getRestContent(url)
     val jsonResult = read[OpenWeatherInfo](result)
-    logger.info("Result: " + jsonResult.name)
+    jsonResult
+  }
+
+  def retrieveWeatherByCoords(latitude: String, longitude: String) : OpenWeatherInfo = {
+    val apiKey = ConfigProperties.getProperty(ConfigProperties.OpenWeatherMapApiKey)
+    val url = ConfigProperties.getProperty(ConfigProperties.OpenWeatherMapUrl) + "lat=" + latitude + "&lon" + longitude + "&appid=" + apiKey
+    logger.info("URL: " + url)
+    val result = SimpleRestClient.getRestContent(url)
+    val jsonResult = read[OpenWeatherInfo](result)
     jsonResult
   }
 }
