@@ -3,9 +3,7 @@ package org.sharpsw.app
 import org.json4s.{DefaultFormats, Formats}
 import org.scalatra._
 import org.scalatra.json.JacksonJsonSupport
-import org.sharpsw.app.data.PlaylistFactory.createFakePlaylist
-import org.sharpsw.app.data.{Playlist, PlaylistFactory}
-import org.sharpsw.service.{OpenWeatherMapService, SpotifyService}
+import org.sharpsw.service.SpotifyService
 import org.sharpsw.service.OpenWeatherMapService.{retrieveWeatherByCity, retrieveWeatherByCoords}
 import org.slf4j.{Logger, LoggerFactory}
 
