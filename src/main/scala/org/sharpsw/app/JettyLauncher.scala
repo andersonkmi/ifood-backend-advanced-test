@@ -19,7 +19,7 @@ object JettyLauncher { // this is my entry object as specified in sbt project de
 
     server.setHandler(context)
 
-    server.start
-    server.join
+    server.start()
+    server.join()
   }
 }
