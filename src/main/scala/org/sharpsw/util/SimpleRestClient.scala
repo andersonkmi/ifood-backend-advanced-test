@@ -1,7 +1,16 @@
 package org.sharpsw.util
 
-import org.apache.http.client.methods.HttpGet
-import org.apache.http.impl.client.DefaultHttpClient
+import java.nio.charset.StandardCharsets
+import java.util.Base64
+
+import org.apache.http.client.entity.UrlEncodedFormEntity
+import org.apache.http.client.methods.{HttpGet, HttpPost}
+import org.apache.http.impl.client.{DefaultHttpClient, HttpClients}
+import org.apache.http.message.BasicNameValuePair
+
+import collection.JavaConverters._
+import scala.collection.mutable.ListBuffer
+import scala.io.Source
 
 object SimpleRestClient {
   def getRestContent(url:String): String = {
@@ -16,5 +25,20 @@ object SimpleRestClient {
     }
     httpClient.getConnectionManager().shutdown()
     return content
+  }
+
+  def sendPostRequest(url: String, clientId: String, secretKey: String): String = {
+    val client = HttpClients.createDefault()
+    val httpPost = new HttpPost(url)
+
+    val params = ListBuffer[BasicNameValuePair]()
+    params += new BasicNameValuePair("grant_type", "client_credentials")
+    httpPost.setEntity(new UrlEncodedFormEntity(params.asJavaCollection))
+    httpPost.setHeader("Authorization", "Basic " + Base64.getEncoder.encodeToString(s"$clientId:$secretKey".getBytes(StandardCharsets.UTF_8)))
+
+    val response = client.execute(httpPost)
+    val responseValue = Source.fromInputStream(response.getEntity.getContent).getLines.mkString
+    client.close()
+    responseValue
   }
 }
