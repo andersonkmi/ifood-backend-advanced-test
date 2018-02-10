@@ -27,7 +27,7 @@ object SimpleRestClient {
     return content
   }
 
-  def sendPostRequest(url: String, clientId: String, secretKey: String): String = {
+  def sendPostRequest(url: String, clientId: String, secretKey: String): Option[String] = {
     val client = HttpClients.createDefault()
     val httpPost = new HttpPost(url)
 
@@ -37,7 +37,8 @@ object SimpleRestClient {
     httpPost.setHeader("Authorization", "Basic " + Base64.getEncoder.encodeToString(s"$clientId:$secretKey".getBytes(StandardCharsets.UTF_8)))
 
     val response = client.execute(httpPost)
-    val responseValue = Source.fromInputStream(response.getEntity.getContent).getLines.mkString
+    var responseValue: Option[String] = None
+    if (response.getStatusLine.getStatusCode == 200) responseValue = Some(Source.fromInputStream(response.getEntity.getContent).getLines.mkString)
     client.close()
     responseValue
   }
