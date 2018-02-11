@@ -9,6 +9,8 @@ object ConfigProperties {
 
   val OpenWeatherMapUrl = "OpenWeatherMapUrl"
   val OpenWeatherMapApiKey = "OpenWeatherMapApiKey"
+  val SpotifyClientId = "SpotifyClientId"
+  val SpotifySecretKey = "SpotifySecretKey"
 
   val props = new java.util.Properties()
 

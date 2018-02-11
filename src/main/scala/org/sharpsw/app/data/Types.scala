@@ -21,3 +21,5 @@ case class Coord (
 case class Main(
   temp: Double
 )
+
+case class AccessToken (access_token: String, token_type: String, expires_in: Int, scope: String)
